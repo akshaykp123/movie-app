@@ -68,7 +68,10 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.js"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^node:(.*)$": "$1"
+    }
   },
   "browserslist": {
     "development": [
