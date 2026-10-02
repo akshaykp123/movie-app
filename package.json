@@ -12,6 +12,7 @@
     "@testing-library/user-event": "12.6.2",
     "@wojtekmaj/enzyme-adapter-react-17": "0.6.5",
     "chalk": "4.1.0",
+    "cheerio": "1.0.0-rc.12",
     "date-fns": "2.25.0",
     "enzyme": "3.11.0",
     "history": "4.10.1",
@@ -25,6 +26,12 @@
     "react-slick": "0.28.1",
     "react-slick-slider": "0.15.10",
     "slick-carousel": "1.8.1"
+  },
+  "overrides": {
+    "cheerio": "1.0.0-rc.12"
+  },
+  "resolutions": {
+    "cheerio": "1.0.0-rc.12"
   },
   "devDependencies": {
     "eslint-config-airbnb": "18.2.1",
