@@ -1,3 +1,4 @@
+import {withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Header from '../Header'
 import FooterSection from '../FooterSection/index'
@@ -7,7 +8,9 @@ const AccountSection = props => {
   const onClickLogout = () => {
     const {history} = props
     Cookies.remove('jwt_token')
-    history.replace('/login')
+    if (history) {
+      history.replace('/login')
+    }
   }
 
   return (
@@ -48,4 +51,4 @@ const AccountSection = props => {
   )
 }
 
-export default AccountSection
+export default withRouter(AccountSection)

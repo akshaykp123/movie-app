@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
@@ -21,11 +22,12 @@ class SearchRoute extends Component {
     apiStatus: apiStatusConstants.initial,
   }
 
-  getSearchApiData = async () => {
+  getSearchApiData = async searchText => {
     const {searchInput} = this.state
+    const query = typeof searchText === 'string' ? searchText : searchInput
     this.setState({apiStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
-    const searchApiUrl = `https://apis.ccbp.in/movies-app/movies-search?search=${searchInput}`
+    const searchApiUrl = `https://apis.ccbp.in/movies-app/movies-search?search=${query}`
     const options = {
       method: 'GET',
       headers: {
@@ -71,7 +73,11 @@ class SearchRoute extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="search-loader-container" id="loader">
+    <div
+      className="search-loader-container"
+      testid="loader"
+      data-testid="loader"
+    >
       <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
     </div>
   )
@@ -87,8 +93,7 @@ class SearchRoute extends Component {
           className="no-result-image"
         />
         <p className="no-result-text">
-          {`
-          Your search for ${searchInput} did not find any matches.`}
+          Your search for {searchInput} did not find any matches.
         </p>
       </div>
     )
@@ -101,7 +106,7 @@ class SearchRoute extends Component {
         alt="failure view"
         className="failure-image"
       />
-      <p className="failure-text">Something went wrong. Please try again</p>
+      <h1 className="failure-text">Something went wrong. Please try again</h1>
       <button
         type="button"
         className="retry-button"

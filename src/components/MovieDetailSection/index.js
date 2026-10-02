@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
@@ -16,7 +17,7 @@ const apiStatusConstants = {
 
 class MovieDetailSection extends Component {
   state = {
-    movieDetailData: [],
+    movieDetailData: {},
     similarMovieDetailData: [],
     genresDetailData: [],
     spokenLanguageDetailData: [],
@@ -140,7 +141,6 @@ class MovieDetailSection extends Component {
           style={{backgroundImage: `url(${movieDetailData.backdropPath})`}}
           className="bg-image"
         >
-          <Header />
           <div className="movie-heading-container">
             <h1 className="poster-title">{movieDetailData.title}</h1>
             <div className="time-year-container">
@@ -207,7 +207,11 @@ class MovieDetailSection extends Component {
   }
 
   renderLoadingView = () => (
-    <div className="movie-detail-loader-container" id="loader">
+    <div
+      className="movie-detail-loader-container"
+      testid="loader"
+      data-testid="loader"
+    >
       <Loader type="TailSpin" color="#D81F26" height={50} width={50} />
     </div>
   )
@@ -247,7 +251,12 @@ class MovieDetailSection extends Component {
   }
 
   render() {
-    return <>{this.renderMovieDetailOutputView()}</>
+    return (
+      <>
+        <Header />
+        {this.renderMovieDetailOutputView()}
+      </>
+    )
   }
 }
 

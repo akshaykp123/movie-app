@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import {Component} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {HiOutlineSearch} from 'react-icons/hi'
 import {AiFillCloseCircle} from 'react-icons/ai'
 import {MdMenuOpen} from 'react-icons/md'
@@ -10,13 +10,19 @@ class Header extends Component {
   state = {showMenu: false, currentPath: ''}
 
   componentDidMount() {
-    const path = window.location.pathname
+    const {location} = this.props
+    const path = location ? location.pathname : window.location.pathname
     this.setState({currentPath: path})
   }
 
   showSearchInput = () => {
     const {currentPath} = this.state
-    return currentPath === '/search'
+    const {getSearchApiData, changeSearchInput, match} = this.props
+    return (
+      currentPath === '/search' ||
+      match?.path === '/search' ||
+      Boolean(getSearchApiData || changeSearchInput)
+    )
   }
 
   onShowSearchInput = () => {
@@ -75,26 +81,39 @@ class Header extends Component {
           </div>
           <div className="search-and-avatar">
             <div className="search-container">
-              {showInput && (
-                <input
-                  type="search"
-                  className="search-input"
-                  onChange={this.onChangeSearchInput}
-                  onKeyDown={this.onKeyDownEnter}
-                />
+              {showInput ? (
+                <>
+                  <input
+                    type="search"
+                    className="search-input"
+                    onChange={this.onChangeSearchInput}
+                    onKeyDown={this.onKeyDownEnter}
+                  />
+                  <button
+                    type="button"
+                    className="search-button"
+                    onClick={this.onShowSearchInput}
+                    id="searchButton"
+                    testid="searchButton"
+                    data-testid="searchButton"
+                  >
+                    <HiOutlineSearch size={18} color="#ffffff" />
+                  </button>
+                </>
+              ) : (
+                <Link to="/search">
+                  <button
+                    type="button"
+                    className="search-button"
+                    onClick={this.onShowSearchInput}
+                    id="searchButton"
+                    testid="searchButton"
+                    data-testid="searchButton"
+                  >
+                    <HiOutlineSearch size={18} color="#ffffff" />
+                  </button>
+                </Link>
               )}
-              <Link to="/search">
-                <button
-                  type="button"
-                  className="search-button"
-                  onClick={this.onShowSearchInput}
-                  id="searchButton"
-                  testid="searchButton"
-                  data-testid="searchButton"
-                >
-                  <HiOutlineSearch size={18} color="#ffffff" />
-                </button>
-              </Link>
             </div>
             <Link to="/account">
               <img
@@ -140,4 +159,4 @@ class Header extends Component {
   }
 }
 
-export default Header
+export default withRouter(Header)

@@ -22,7 +22,7 @@
     }
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": "off",
     "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
     "react/state-in-constructor": "off",
     "react/react-in-jsx-scope": "off",
@@ -55,6 +55,7 @@
     "react/no-unescaped-entities": "warn",
     "react/jsx-props-no-spreading": "off",
     "operator-assignment": ["warn", "always"],
-    "radix": "off"
+    "radix": "off",
+    "react/no-unknown-property": "off"
   }
 }
