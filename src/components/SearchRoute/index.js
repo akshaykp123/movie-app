@@ -106,7 +106,7 @@ class SearchRoute extends Component {
         alt="failure view"
         className="failure-image"
       />
-      <h1 className="failure-text">Something went wrong. Please try again</h1>
+      <p className="failure-text">Something went wrong. Please try again</p>
       <button
         type="button"
         className="retry-button"
